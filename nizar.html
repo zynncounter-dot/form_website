@@ -80,6 +80,52 @@
         .page.active {
             display: block;
         }
+
+        /* Success overlay for member registration */
+        .success-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.6);
+            z-index: 60;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .success-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .check-card {
+            background: linear-gradient(135deg, #052b3f, #08324d);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .checkmark {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(0,212,255,0.15), transparent 30%), rgba(0,212,255,0.06);
+            display: grid;
+            place-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            transform: scale(0.8);
+            animation: popIn 0.45s cubic-bezier(.2,.9,.3,1) forwards;
+        }
+
+        @keyframes popIn {
+            to { transform: scale(1); }
+        }
         
         .nav-link {
             transition: all 0.3s ease;
@@ -112,6 +158,7 @@
                     <a href="#" class="nav-link" onclick="showPage('layanan')">Layanan</a>
                     <a href="#" class="nav-link" onclick="showPage('pemesanan')">Pemesanan</a>
                     <a href="#" class="nav-link" onclick="showPage('tentang')">Tentang Kami</a>
+                    <a href="#" class="nav-link" onclick="showPage('member')">Member</a>
                 </div>
                 <button class="md:hidden text-neon-blue" onclick="toggleMobileMenu()">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,6 +171,7 @@
                 <a href="#" class="block nav-link py-2" onclick="showPage('layanan')">Layanan</a>
                 <a href="#" class="block nav-link py-2" onclick="showPage('pemesanan')">Pemesanan</a>
                 <a href="#" class="block nav-link py-2" onclick="showPage('tentang')">Tentang Kami</a>
+                <a href="#" class="block nav-link py-2" onclick="showPage('member')">Member</a>
             </div>
         </div>
     </nav>
@@ -163,17 +211,23 @@
                 <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Layanan Unggulan Kami</h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="service-card p-8 rounded-xl border border-neon-blue/20 fade-in">
-                        <div class="text-4xl mb-4">🌐</div>
+                        <div class="mb-4">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=60" alt="Instalasi Jaringan" class="w-full h-40 object-cover rounded-md border-2 border-neon-blue">
+                        </div>
                         <h3 class="text-2xl font-bold mb-4 text-neon-blue">Instalasi Jaringan</h3>
                         <p class="text-gray-300">Pemasangan jaringan LAN/WAN profesional dengan teknologi terdepan untuk performa optimal.</p>
                     </div>
                     <div class="service-card p-8 rounded-xl border border-neon-purple/20 fade-in" style="animation-delay: 0.2s;">
-                        <div class="text-4xl mb-4">🔒</div>
+                        <div class="mb-4">
+                            <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=800&q=60" alt="Keamanan Cyber" class="w-full h-40 object-cover rounded-md border-2 border-neon-purple">
+                        </div>
                         <h3 class="text-2xl font-bold mb-4 text-neon-purple">Keamanan Cyber</h3>
                         <p class="text-gray-300">Perlindungan menyeluruh dari ancaman cyber dengan sistem keamanan berlapis.</p>
                     </div>
                     <div class="service-card p-8 rounded-xl border border-neon-green/20 fade-in" style="animation-delay: 0.4s;">
-                        <div class="text-4xl mb-4">☁️</div>
+                        <div class="mb-4">
+                            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=60" alt="Cloud Solutions" class="w-full h-40 object-cover rounded-md border-2 border-neon-green">
+                        </div>
                         <h3 class="text-2xl font-bold mb-4 text-neon-green">Cloud Solutions</h3>
                         <p class="text-gray-300">Migrasi dan pengelolaan infrastruktur cloud untuk efisiensi maksimal.</p>
                     </div>
@@ -215,7 +269,9 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Network Infrastructure -->
                     <div class="service-card p-8 rounded-xl border border-neon-blue/20">
-                        <div class="text-5xl mb-6">🌐</div>
+                        <div class="mb-6">
+                            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=60" alt="Infrastruktur Jaringan" class="w-full h-40 object-cover rounded-md border-2 border-neon-blue">
+                        </div>
                         <h3 class="text-2xl font-bold mb-4 text-neon-blue">Infrastruktur Jaringan</h3>
                         <ul class="text-gray-300 space-y-2 mb-6">
                             <li>• Desain & Instalasi LAN/WAN</li>
@@ -231,7 +287,9 @@
 
                     <!-- Cybersecurity -->
                     <div class="service-card p-8 rounded-xl border border-neon-purple/20">
-                        <div class="text-5xl mb-6">🔒</div>
+                        <div class="mb-6">
+                            <img src="https://img.freepik.com/foto-gratis/desain-kolase-konsep-keamanan-siber_23-2151877167.jpg?semt=ais_hybrid&w=740&q=80">
+                        </div>
                         <h3 class="text-2xl font-bold mb-4 text-neon-purple">Keamanan Cyber</h3>
                         <ul class="text-gray-300 space-y-2 mb-6">
                             <li>• Firewall Configuration</li>
@@ -247,7 +305,9 @@
 
                     <!-- Cloud Solutions -->
                     <div class="service-card p-8 rounded-xl border border-neon-green/20">
-                        <div class="text-5xl mb-6">☁️</div>
+                        <div class="mb-6">
+                            <img src="https://www.ad-ins.com/wp-content/uploads/2022/07/Jenis-Layanan-Cloud-Berdasarkan-Vendor-1536x1024.jpg">
+                        </div>
                         <h3 class="text-2xl font-bold mb-4 text-neon-green">Solusi Cloud</h3>
                         <ul class="text-gray-300 space-y-2 mb-6">
                             <li>• Cloud Migration</li>
@@ -263,7 +323,9 @@
 
                     <!-- IT Support -->
                     <div class="service-card p-8 rounded-xl border border-yellow-400/20">
-                        <div class="text-5xl mb-6">🛠️</div>
+                        <div class="mb-6">
+                            <img src="https://sasanadigital.com/wp-content/uploads/2024/01/layanan-jasa-it.webp">
+                        </div>
                         <h3 class="text-2xl font-bold mb-4 text-yellow-400">IT Support</h3>
                         <ul class="text-gray-300 space-y-2 mb-6">
                             <li>• 24/7 Technical Support</li>
@@ -279,7 +341,9 @@
 
                     <!-- Server Management -->
                     <div class="service-card p-8 rounded-xl border border-red-400/20">
-                        <div class="text-5xl mb-6">🖥️</div>
+                        <div class="mb-6">
+                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=60" alt="Manajemen Server" class="w-full h-40 object-cover rounded-md border-2 border-red-400">
+                        </div>
                         <h3 class="text-2xl font-bold mb-4 text-red-400">Manajemen Server</h3>
                         <ul class="text-gray-300 space-y-2 mb-6">
                             <li>• Server Installation</li>
@@ -295,7 +359,9 @@
 
                     <!-- Wireless Solutions -->
                     <div class="service-card p-8 rounded-xl border border-pink-400/20">
-                        <div class="text-5xl mb-6">📡</div>
+                        <div class="mb-6">
+                            <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=800&q=60" alt="Solusi Wireless" class="w-full h-40 object-cover rounded-md border-2 border-pink-400">
+                        </div>
                         <h3 class="text-2xl font-bold mb-4 text-pink-400">Solusi Wireless</h3>
                         <ul class="text-gray-300 space-y-2 mb-6">
                             <li>• WiFi Network Design</li>
@@ -311,7 +377,9 @@
 
                     <!-- Home Network Package -->
                     <div class="service-card p-8 rounded-xl border border-orange-400/20">
-                        <div class="text-5xl mb-6">🏠</div>
+                        <div class="mb-6">
+                            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60" alt="Paket Jaringan Rumah" class="w-full h-40 object-cover rounded-md border-2 border-orange-400">
+                        </div>
                         <h3 class="text-2xl font-bold mb-4 text-orange-400">Paket Jaringan Rumah</h3>
                         <ul class="text-gray-300 space-y-2 mb-6">
                             <li>• Instalasi WiFi Rumahan</li>
@@ -327,7 +395,9 @@
 
                     <!-- Smart Home Solutions -->
                     <div class="service-card p-8 rounded-xl border border-cyan-400/20">
-                        <div class="text-5xl mb-6">🏡</div>
+                        <div class="mb-6">
+                            <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=60" alt="Smart Home" class="w-full h-40 object-cover rounded-md border-2 border-cyan-400">
+                        </div>
                         <h3 class="text-2xl font-bold mb-4 text-cyan-400">Smart Home Basic</h3>
                         <ul class="text-gray-300 space-y-2 mb-6">
                             <li>• Setup Smart TV & Streaming</li>
@@ -343,7 +413,9 @@
 
                     <!-- Home Office Setup -->
                     <div class="service-card p-8 rounded-xl border border-indigo-400/20">
-                        <div class="text-5xl mb-6">💻</div>
+                        <div class="mb-6">
+                            <img src="https://storage.googleapis.com/arsitagx-master-article/article-photo/930/ruang-kerja-di-rumah-cover.jpg">
+                        </div>
                         <h3 class="text-2xl font-bold mb-4 text-indigo-400">Home Office Setup</h3>
                         <ul class="text-gray-300 space-y-2 mb-6">
                             <li>• Jaringan Kerja dari Rumah</li>
@@ -573,6 +645,60 @@
     </div>
 
     <!-- Footer -->
+    <!-- Member Page -->
+    <div id="member" class="page pt-20">
+        <section class="py-20 bg-dark-primary">
+            <div class="container mx-auto px-6 max-w-2xl">
+                <h1 class="text-4xl font-bold text-center mb-8 gradient-text">Daftar Member</h1>
+
+                <div class="bg-dark-secondary rounded-2xl p-8 border border-neon-blue/20">
+                    <form id="memberForm" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-neon-blue">Email *</label>
+                            <input type="email" id="memberEmail" required class="w-full px-4 py-3 bg-dark-accent border border-gray-600 rounded-lg focus:border-neon-blue focus:outline-none text-white">
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-neon-blue">Password *</label>
+                                <input type="password" id="memberPassword" required minlength="6" class="w-full px-4 py-3 bg-dark-accent border border-gray-600 rounded-lg focus:border-neon-blue focus:outline-none text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-neon-blue">Konfirmasi Password *</label>
+                                <input type="password" id="memberPasswordConfirm" required minlength="6" class="w-full px-4 py-3 bg-dark-accent border border-gray-600 rounded-lg focus:border-neon-blue focus:outline-none text-white">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" id="memberAgreement" required class="w-5 h-5 text-neon-blue bg-dark-accent border-gray-600 rounded">
+                                <span class="ml-3 text-gray-300 text-sm">Saya menyetujui syarat & ketentuan</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-neon-blue to-neon-purple py-4 rounded-lg font-semibold text-lg hover:scale-105 transition-all duration-300 pulse-glow">
+                            Daftar Sekarang
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Success overlay for member registration -->
+    <div id="memberSuccessOverlay" class="success-overlay" aria-hidden="true">
+        <div class="check-card">
+            <div class="checkmark">
+                <svg width="56" height="56" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="26" cy="26" r="25" stroke="rgba(0,212,255,0.8)" stroke-width="2" />
+                    <path d="M15 27l6 6 16-16" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+            </div>
+            <div class="text-white font-semibold">Pendaftaran Berhasil</div>
+            <div class="text-gray-400 text-sm">Silakan cek email untuk verifikasi (jika diaktifkan).</div>
+            <button id="memberOverlayClose" class="mt-4 px-6 py-2 bg-neon-blue text-dark-primary rounded-lg font-semibold">Tutup</button>
+        </div>
+    </div>
     <footer class="bg-dark-secondary border-t border-neon-blue/20 py-12">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-4 gap-8">
@@ -606,8 +732,8 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-4 text-neon-green">Kontak</h4>
                     <div class="space-y-2 text-gray-400">
-                        <div>📍 Jakarta, Indonesia</div>
-                        <div>📞 +62 21 1234 5678</div>
+                        <div>📍 Makassar, Indonesia</div>
+                        <div>📞 +62895 3344 3179 5</div>
                         <div>📧 info@netverse.tech</div>
                         <div>🕒 24/7 Support</div>
                     </div>
@@ -706,6 +832,76 @@
             });
         });
 
+        // --- Member registration integration ---
+        // Replace this URL with your deployed Google Apps Script Web App URL for member data
+        const scriptURL_MEMBER = 'https://script.google.com/macros/s/AKfycbze1q2Ddw26L9_Kqra3vldIPiZ8tnp8WyKbRxRo_dM66vARRYjU9wrmoMyJXTq1fvBf_Q/exec';
+
+        document.getElementById('memberForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('memberEmail').value.trim();
+            const password = document.getElementById('memberPassword').value;
+            const passwordConfirm = document.getElementById('memberPasswordConfirm').value;
+
+            if (password !== passwordConfirm) {
+                alert('Password dan konfirmasi password tidak cocok.');
+                return;
+            }
+
+            // Minimal client-side password rule
+            if (password.length < 6) {
+                alert('Password minimal 6 karakter.');
+                return;
+            }
+
+            // Prepare payload (NOTE: for production, handle password hashing and secure storage server-side)
+            const memberData = {
+                email: email,
+                password: password,
+                timestamp: new Date().toLocaleString('id-ID')
+            };
+
+            const memberSubmitBtn = document.querySelector('#memberForm button[type="submit"]');
+            const originalMemberText = memberSubmitBtn.innerHTML;
+            memberSubmitBtn.innerHTML = 'Mendaftarkan...';
+            memberSubmitBtn.disabled = true;
+
+            fetch(scriptURL_MEMBER, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(memberData),
+                mode: 'no-cors'
+            })
+            .then(() => {
+                // Show animated overlay
+                const overlay = document.getElementById('memberSuccessOverlay');
+                overlay.classList.add('show');
+
+                // Reset form (keep disabled briefly)
+                document.getElementById('memberForm').reset();
+                memberSubmitBtn.innerHTML = originalMemberText;
+                memberSubmitBtn.disabled = false;
+
+                // Auto-hide overlay after 6s
+                setTimeout(() => {
+                    overlay.classList.remove('show');
+                }, 6000);
+            })
+            .catch(err => {
+                console.error('Member registration error:', err);
+                alert('Terjadi kesalahan saat mendaftar. Silakan coba lagi.');
+                memberSubmitBtn.innerHTML = originalMemberText;
+                memberSubmitBtn.disabled = false;
+            });
+        });
+
+        // Close overlay button
+        document.getElementById('memberOverlayClose').addEventListener('click', function() {
+            document.getElementById('memberSuccessOverlay').classList.remove('show');
+        });
+
         // Smooth scrolling for navigation
         document.addEventListener('DOMContentLoaded', function() {
             // Add animation classes to elements when they come into view
@@ -739,3 +935,4 @@
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a4145f51c9aa09',t:'MTc1OTc0MjM5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+
